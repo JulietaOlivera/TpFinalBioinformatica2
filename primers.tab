@@ -1,0 +1,3 @@
+Nombre_gen	Seq_primer_fw	Tm_fw	Ta_fw	Seq_primer_rv	Tm_rv	Ta_rv	Tamaño_producto_pb
+Gene_Test_Positivo	CGATCGATCGATCGATCGAT	60.0	55.0	GATCGATCGATCGATCGATC	60.0	55.0	51
+Gene_Test_Negativo	GATCGATCGATCGATCGATC	60.0	55.0	GTCCATCGATCGATCGATCG	62.0	57.0	51
