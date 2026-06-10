@@ -1,16 +1,3 @@
-"""
-diseño_kit_diagnostico.py
-Pipeline principal para el diseño de primers de diagnóstico por PCR.
-
-Uso:
-    python diseño_kit_diagnostico.py <ensamblado.fasta> <genes.gff>
-
-Archivos de salida generados:
-    primers.tab         → tabla TSV con primers, Tm, Ta y tamaño de producto
-    amplicones.fasta    → multifasta con las secuencias de los amplicones
-    res_enzimas.tab     → tabla TSV con el análisis de sitios de restricción
-"""
-
 import sys
 from Bio import SeqIO
 
@@ -24,7 +11,7 @@ from salida          import (
 )
 
 
-# ── Archivos de salida ────────────────────────────────────────────────────────
+#Archivos de salida
 SALIDA_PRIMERS     = "primers.tab"
 SALIDA_AMPLICONES  = "amplicones.fasta"
 SALIDA_RESTRICCION = "res_enzimas.tab"
@@ -32,9 +19,7 @@ SALIDA_RESTRICCION = "res_enzimas.tab"
 
 def cargar_genoma(ruta_fasta):
     """
-    Carga el primer registro del FASTA como secuencia genómica.
-    Si el ensamblado tiene varios contigs, solo se usa el primero;
-    ajustar si se necesita soporte multi-contig.
+    Carga el FASTA como secuencia genómica.
     """
     registros = list(SeqIO.parse(ruta_fasta, "fasta"))
     if not registros:
@@ -53,7 +38,7 @@ def main():
     ruta_fasta = sys.argv[1]
     ruta_gff   = sys.argv[2]
 
-    # 1. Cargar datos de entrada
+    #Se cargan los datos de entrada
     print("Cargando genoma...")
     secuencia_genomica = cargar_genoma(ruta_fasta)
 
@@ -61,7 +46,7 @@ def main():
     genes = parsear_gff(ruta_gff)
     print(f"  → {len(genes)} genes encontrados.")
 
-    # 2. Diseñar primers para cada gen
+    # Se diseñan los primers
     print("Diseñando primers...")
     resultados = []
     omitidos   = 0
@@ -74,14 +59,14 @@ def main():
             resultados.append(resultado)
     print(f"  → {len(resultados)} pares de primers generados ({omitidos} omitidos).")
 
-    # 3. Escribir tabla de primers y multifasta de amplicones
+    #Se escribe tabla de primers y multifasta de amplicones
     escribir_tabla_primers(resultados, SALIDA_PRIMERS)
     print(f"Tabla de primers guardada en: {SALIDA_PRIMERS}")
 
     escribir_multifasta_amplicones(resultados, SALIDA_AMPLICONES)
     print(f"Multifasta de amplicones guardado en: {SALIDA_AMPLICONES}")
 
-    # 4. Análisis de sitios de restricción
+    #Análisis de sitios de restricción
     print("Analizando sitios de restricción...")
     filas_restriccion = analizar_amplicones(resultados)
     escribir_tabla_restriccion(filas_restriccion, SALIDA_RESTRICCION)

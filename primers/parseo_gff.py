@@ -1,5 +1,4 @@
 """
-parseo_gff.py
 Parseo de archivos GFF3 para extraer información de genes predichos.
 """
 
