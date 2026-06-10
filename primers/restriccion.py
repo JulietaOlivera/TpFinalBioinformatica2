@@ -1,5 +1,4 @@
 """
-restriccion.py
 Análisis de sitios de restricción en los amplicones generados.
 
 Las enzimas con sitios degenerados (como AvaII: GGWCC, donde W = A o T)
@@ -18,7 +17,7 @@ ENZIMAS = {
 
 def contar_sitios(secuencia, patron):
     """
-    Cuenta ocurrencias NO solapadas del patrón en la secuencia.
+    Cuenta ocurrencias no solapadas del patrón en la secuencia.
     Usa re.findall para manejar bases degeneradas.
     """
     return len(re.findall(patron, secuencia, re.IGNORECASE))
@@ -27,15 +26,6 @@ def contar_sitios(secuencia, patron):
 def analizar_amplicones(resultados_primers):
     """
     Recorre los amplicones y cuenta los sitios de cada enzima.
-
-    Parámetros
-    ----------
-    resultados_primers : list[dict]
-        Lista de diccionarios retornados por disenar_primers_gen.
-
-    Retorna
-    -------
-    list[dict] con claves: amplicón, enzima, sitio, cantidad.
     """
     filas = []
     for resultado in resultados_primers:

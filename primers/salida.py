@@ -1,5 +1,4 @@
 """
-salida.py
 Funciones para escribir los archivos de salida del pipeline.
 """
 
