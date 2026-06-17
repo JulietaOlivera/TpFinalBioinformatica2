@@ -25,7 +25,7 @@ def parsear_gff(ruta_gff):
 
             seqid, _, feature, start, end, _, hebra, _, atributos = campos
 
-            if feature != "gene":
+            if feature not in ("gene", "CDS"):
                 continue
 
             nombre = _extraer_nombre(atributos)
