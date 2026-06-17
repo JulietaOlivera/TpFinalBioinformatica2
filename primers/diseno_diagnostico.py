@@ -1,5 +1,5 @@
-import sys
-from Bio import SeqIO
+import sys #guarda argumentos de línea de comandos (ingresar los archivos de entrada)
+from Bio import SeqIO #para leer archivos FASTA. generará objetos SeqRecord
 
 from parseo_gff      import parsear_gff
 from diseno_primers  import disenar_primers_gen
@@ -21,7 +21,7 @@ def cargar_genoma(ruta_fasta):
     """
     Carga el FASTA como secuencia genómica.
     """
-    registros = list(SeqIO.parse(ruta_fasta, "fasta"))
+    registros = list(SeqIO.parse(ruta_fasta, "fasta")) #parse devuelve un iterador (Eficiencia de memoria) que luego se hace una lista para verificar cuantas secuencias hay
     if not registros:
         raise ValueError(f"No se encontraron secuencias en {ruta_fasta}")
     if len(registros) > 1:

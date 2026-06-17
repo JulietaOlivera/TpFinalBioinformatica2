@@ -1,8 +1,6 @@
-"""
-Parseo de archivos GFF3 para extraer información de genes predichos.
-"""
 
-import re
+
+import re #modulo para trabajr con expresiones regulares
 
 
 def parsear_gff(ruta_gff):
@@ -23,9 +21,9 @@ def parsear_gff(ruta_gff):
             if len(campos) < 9:
                 continue
 
-            seqid, _, feature, start, end, _, hebra, _, atributos = campos
+            seqid, _, feature, start, end, _, hebra, _, atributos = campos #dada la forma de un archivo .GFF, hay campos que no resultan relevantes para la consigna y se pasan por alto
 
-            if feature not in ("gene", "CDS"):
+            if feature not in ("gene", "CDS"): #Prokka da resultados de CDSs no de Genes, son los unicos resultados que vamos  a poder analizar 
                 continue
 
             nombre = _extraer_nombre(atributos)
@@ -43,7 +41,9 @@ def parsear_gff(ruta_gff):
 def _extraer_nombre(atributos):
     """Extrae el valor de ID o Name del campo de atributos GFF."""
     for clave in ("ID", "Name"):
-        match = re.search(rf"{clave}=([^;]+)", atributos)
+        match = re.search(rf"{clave}=([^;]+)", atributos) #search busca la primera coincidencia, r (rawstring para que no se interpreten carácteres especiales de python)
+        """clave va a tomar el valor ID en la primera iteración, los paréntesis son para guardar en un grupo, cualquier caracter (^) excepto
+        ; + significa 1 o mas veces para que vaya leyendo todo lo correspondiente al nombre del gen deteniendose en el ;"""
         if match:
             return match.group(1)
     return atributos.split(";")[0]
