@@ -12,8 +12,8 @@ from salida          import (
 
 
 #Archivos de salida
-SALIDA_PRIMERS     = "primers.tab"
-SALIDA_AMPLICONES  = "amplicones.fasta"
+SALIDA_PRIMERS     = "primers.tab"        """ Variables globales. si en el futuro cambia la extensión o el nombre solo tienes  modificar estas tres líneas """
+SALIDA_AMPLICONES  = "amplicones.fasta"  
 SALIDA_RESTRICCION = "res_enzimas.tab"
 
 
@@ -31,7 +31,7 @@ def cargar_genoma(ruta_fasta):
 
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 3: #verifica que se hayan cargado los 3 parámetros necesarios
         print("Uso: python diseño_kit_diagnostico.py <ensamblado.fasta> <genes.gff>")
         sys.exit(1)
 
@@ -53,7 +53,7 @@ def main():
     for gen in genes:
         resultado = disenar_primers_gen(gen, secuencia_genomica)
         if resultado is None:
-            print(f"  [OMITIDO] {gen['nombre']}: coordenadas fuera de rango.")
+            print(f"  [OMITIDO] {gen['nombre']}: coordenadas fuera de rango.")   """el offset de 5 nucleótidos más los 20 nucleótidos del tamaño del primer podrían "caerse" fuera del rango de la secuencia."""
             omitidos += 1
         else:
             resultados.append(resultado)
@@ -72,7 +72,7 @@ def main():
     escribir_tabla_restriccion(filas_restriccion, SALIDA_RESTRICCION)
     print(f"Tabla de restricción guardada en: {SALIDA_RESTRICCION}")
 
-    print("\n¡Pipeline completado exitosamente!")
+    print("\nPipeline completado exitosamente!")
 
 
 if __name__ == "__main__":
