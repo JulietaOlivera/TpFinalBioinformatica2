@@ -42,8 +42,8 @@ def _extraer_nombre(atributos):
     """Extrae el valor de ID o Name del campo de atributos GFF."""
     for clave in ("ID", "Name"):
         match = re.search(rf"{clave}=([^;]+)", atributos) #search busca la primera coincidencia, r (rawstring para que no se interpreten carácteres especiales de python)
-        """clave va a tomar el valor ID en la primera iteración, los paréntesis son para guardar en un grupo, cualquier caracter (^) excepto
+        """Los paréntesis indican que se capture el patron dentro de ellos. cualquier caracter (^) excepto
         ; + significa 1 o mas veces para que vaya leyendo todo lo correspondiente al nombre del gen deteniendose en el ;"""
         if match:
-            return match.group(1)
-    return atributos.split(";")[0]
+            return match.group(1) #match.group(0) devolveria todo lo capturado incluyendo ID, (1) solo el id o nombre limpio
+    return atributos.split(";")[0] #si no funciona va a devolver al menos el primer fragmento de información. 
