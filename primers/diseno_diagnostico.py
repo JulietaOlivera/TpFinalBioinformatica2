@@ -12,7 +12,7 @@ from salida          import (
 
 
 #Archivos de salida
-SALIDA_PRIMERS     = "primers.tab"        """ Variables globales. si en el futuro cambia la extensión o el nombre solo tienes  modificar estas tres líneas """
+SALIDA_PRIMERS     = "primers.tab"        # Variables globales. si en el futuro cambia la extensión o el nombre solo tienes  modificar estas tres líneas
 SALIDA_AMPLICONES  = "amplicones.fasta"  
 SALIDA_RESTRICCION = "res_enzimas.tab"
 
